@@ -1,0 +1,42 @@
+body{
+	background: none !important;
+}
+
+.ui-dialog, .ui-widget-overlay{
+	display: none;
+}
+
+.reklama_mimo, .reklama_mimo_ppm{
+    display: none;
+}
+
+.ppm-header{
+    display: inline-block;
+}
+
+.ppm-header a{
+    display: inline-block;
+    color: #fff;
+    font-size: 11px;
+    margin: 10px 10px 0 0;
+}
+
+
+.top_menu{
+    margin-top: -9px  !important;
+}
+
+.top_search{
+    display: none  !important;
+}
+
+.top_konta{
+    padding-right: 9px  !important;
+    height: 0;
+}
+
+.top_info{
+    display: none !important;
+}
+
+

@@ -1,0 +1,33 @@
+{
+    "manifest_version": 2,
+
+    "name": "PPM Helper",
+    "description": "PPM Helper by Ozerich",
+    "version": "0.1",
+
+    "permissions": [
+        "http://ppm.ozis.by/"
+    ],
+
+    "content_scripts": [
+        {
+            "matches": ["http://hockey.powerplaymanager.com/*","http://soccer.powerplaymanager.com/*","http://handball.powerplaymanager.com/*"],
+            "run_at": "document_start",
+            "js": ["lib/jquery.js", "config.js", "js/ppm_datapoint.js"],
+            "css": ["css/ppm.css", "css/ext.css"]
+        },
+        {
+            "matches": ["http://*.powerplaymanager.com/*"],
+            "run_at": "document_end",
+            "js": ["js/loader.js"]
+
+        },
+        {
+            "matches": ["http://*.powerplaymanager.com/*/player.html*", "http://handball.powerplaymanager.com/*/player-profile.html*"],
+            "run_at": "document_end",
+            "js": ["js/player.js"],
+            "css": ["css/player.css"]
+        }
+    ]
+
+}

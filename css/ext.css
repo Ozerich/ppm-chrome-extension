@@ -1,0 +1,16 @@
+.widget-content{
+    position: relative;
+    min-height: 50px;
+}
+
+.widget-content .loader{
+    background-image: url('chrome-extension://__MSG_@@extension_id__/img/ajax-loader.gif');
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    margin-left: -16px;
+    display: none;
+    width: 32px;
+    height: 32px;
+    z-index: 99999;
+}
