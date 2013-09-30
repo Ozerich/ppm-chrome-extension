@@ -86,7 +86,7 @@ var Config = {
                 name: 'Фланговый полузащитник',
                 visible: ['mid', 'sho', 'tec', 'spe', 'pas', 'hea'],
                 skills: {
-                    goa: 100,
+                    mid: 100,
                     spe: 70,
                     pas: 50,
                     tec: 50,
@@ -98,7 +98,7 @@ var Config = {
                 name: 'Центральный полузащитник',
                 visible: ['mid', 'sho', 'tec', 'spe', 'pas', 'hea'],
                 skills: {
-                    goa: 100,
+                    mid: 100,
                     tec: 70,
                     pas: 70,
                     spe: 30,

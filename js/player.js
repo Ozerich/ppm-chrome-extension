@@ -223,8 +223,6 @@ function HockeyPlayer() {
     this.addPosition('center', {off: 1, tec: 2, pas: 2});
 
     this.construct();
-
-
 }
 extend(HockeyPlayer, Player);
 
@@ -245,8 +243,6 @@ function SoccerPlayer() {
     this.addPosition('center_forward', {off: 1, spe: 2, tec: 3, pas: 4, hea: 4});
 
     this.construct();
-
-
 }
 extend(SoccerPlayer, Player);
 
