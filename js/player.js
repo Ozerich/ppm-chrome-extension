@@ -14,6 +14,7 @@ function Player() {
     };
 
     this.pro_mode = false;
+    this.is_at = false;
 
     this.skills_ids = [];
     this.setSkillIds = function (_ids) {
@@ -36,6 +37,7 @@ function Player() {
 
     this.construct = function () {
         this.pro_mode = $('.protext .checkbox_yes').length > 0;
+        this.is_at = $($('.table').first().find('tr').get(1)).find('td').first().attr('title') !== undefined;
 
         for (var i = 0; i < this.skills_ids.length; i++) {
             this.skills_data[this.skills_ids[i]] = [0, 0];
@@ -99,7 +101,40 @@ function Player() {
     };
 
     this.parseSkills = function () {
-        throw "Abstract method";
+
+
+        var $table = $('.table').first().find('tbody'), $skill_value, $skill_quality;
+        for (var i = 0; i < this.skills_ids.length; i++) {
+
+            if (this.pro_mode) {
+                var $skill_cell = $($table.find('td').get(i + (this.is_at ? 1 : 0)));
+                $skill_value = $skill_cell.find('*').first();
+                $skill_quality = $skill_cell.find('*').last();
+            }
+            else {
+                var tds = $($('.table').first().find('tr').get(i + 1)).find('td');
+                $skill_value = $(tds[1]);
+                $skill_quality = $(tds[3]);
+            }
+
+            var level = 0;
+            if ($skill_value.find('strong').length > 0 || $skill_value.css('font-weight') == 'bold') {
+                level = 1;
+            }
+            else if ($skill_value.css('color') == 'rgb(178, 34, 34)') {
+                level = 2;
+            }
+            else if ($skill_value.css('color') == 'rgb(0, 0, 187)') {
+                level = 3;
+            }
+            else if ($skill_value.css('color') == 'rgb(0, 153, 0)') {
+                level = 4;
+            }
+
+            that.addSkill(this.skills_ids[i], $skill_value.text(), $skill_quality.text(), level);
+        }
+
+
     };
 
     this.getSkillsForHide = function () {
@@ -116,8 +151,30 @@ function Player() {
         return result;
     };
 
+
     this.hideHiddenSkills = function () {
-        throw "Abstract method";
+
+        if (!this.pro_mode)return;
+
+        var skills_to_hide = this.getSkillsForHide();
+
+        var $table = $('.table').first();
+
+        for (var i = 0; i < skills_to_hide.length; i++) {
+            var skill_id = skills_to_hide[i];
+            var pos = this.skills_ids.indexOf(skill_id);
+
+            $table.find('tr').each(function () {
+                $($(this).find('td:visible').get(pos + (that.is_at ? 1 : 0))).addClass('hidden');
+            });
+        }
+
+        $table.find('tr').each(function () {
+            $(this).find('.hidden').hide();
+        });
+
+        $table.after('<a href="#" onclick="$(\'.table\').first().find(\'.hidden\').show();$(this).hide();return false;">показать все скиллы</a>');
+
     };
 
 
@@ -145,7 +202,7 @@ function Player() {
             total = total + this.position_config.skills[skill_id];
         }
         for (skill_id in this.position_config.skills) {
-            result = result + this.getSkillValue(skill_id) * (this.position_config.skills[skill_id] / total);
+            result = result + this.getSkillQuality(skill_id) * (this.position_config.skills[skill_id] / total);
         }
 
         return Math.round(result * 10) / 10;
@@ -154,7 +211,6 @@ function Player() {
 
 function HockeyPlayer() {
     var that = this;
-
 
     HockeyPlayer.superclass.constructor.apply(this, arguments);
 
@@ -169,87 +225,44 @@ function HockeyPlayer() {
     this.construct();
 
 
-    this.parseSkills = function () {
-
-        var _skills_map = {
-            goa: 'goalie',
-            def: 'defense',
-            off: 'attack',
-            sho: 'shooting',
-            pas: 'passing',
-            tec: 'technique_attribute',
-            agr: 'aggressive'
-        };
-
-        if (this.pro_mode) {
-
-            for (var skill_id in _skills_map) {
-                if (_skills_map.hasOwnProperty(skill_id)) {
-                    var $skill_value = $('#' + _skills_map[skill_id]);
-
-                    var level = 0;
-                    if ($skill_value.get(0).tagName.toUpperCase() == 'STRONG') {
-                        level = 1;
-                    }
-                    else if ($skill_value.css('color') == 'rgb(178, 34, 34)') {
-                        level = 2;
-                    }
-
-                    that.addSkill(skill_id, $skill_value.text(), +$skill_value.parents('td').find('span').last().text(), level);
-                }
-            }
-        }
-
-        else {
-            var ind = 1;
-            for (var skill_id in _skills_map) {
-                if (_skills_map.hasOwnProperty(skill_id)) {
-                    var tds = $($('.table').first().find('tr').get(ind)).find('td');
-                    that.addSkill(skill_id, $(tds[1]).text(), $(tds[3]).text());
-                    ind++;
-                }
-            }
-        }
-
-    };
-
-
-    this.hideHiddenSkills = function () {
-
-        var skills_to_hide = this.getSkillsForHide();
-
-
-        for (var i = 0; i < skills_to_hide.length; i++) {
-            var skill_id = skills_to_hide[i];
-            var pos = this.skills_ids.indexOf(skill_id);
-
-            if (this.pro_mode) {
-                $('.table').first().find('tr').each(function () {
-                    $($(this).find('td:visible').get(pos)).addClass('hidden');
-                });
-            }
-        }
-        $('.table').first().find('tr').each(function () {
-            $(this).find('.hidden').hide();
-        });
-
-        $('.table').first().after('<a href="#" onclick="$(\'.table\').first().find(\'td.hidden\').show();$(this).hide();return false;">показать все скиллы</a>');
-
-    };
-
-
 }
 extend(HockeyPlayer, Player);
 
 
 function SoccerPlayer() {
 
+    SoccerPlayer.superclass.constructor.apply(this, arguments);
+
+    this.setSport('soccer');
+    this.setSkillIds(['goa', 'def', 'mid', 'off', 'sho', 'pas', 'tec', 'spe', 'hea']);
+
+    this.addPosition('goalkeeper', {goa: 1, tec: 2, spe: 2, pas: 4, hea: 4});
+    this.addPosition('side_defender', {def: 1, spe: 2, pas: 3, tec: 3, hea: 4});
+    this.addPosition('center_defender', {def: 1, pas: 3, tec: 3, spe: 3, hea: 3});
+    this.addPosition('side_midfielder', {mid: 1, spe: 2, pas: 3, tec: 3, hea: 4});
+    this.addPosition('center_midfielder', {mid: 1, pas: 2, tec: 2, spe: 4, hea: 4});
+    this.addPosition('side_forward', {off: 1, spe: 2, tec: 2, pas: 3, hea: 4});
+    this.addPosition('center_forward', {off: 1, spe: 2, tec: 3, pas: 4, hea: 4});
+
+    this.construct();
+
+
 }
 extend(SoccerPlayer, Player);
 
 
 function HandballPlayer() {
+    HandballPlayer.superclass.constructor.apply(this, arguments);
 
+    this.setSport('handball');
+    this.setSkillIds(['goa', 'fip', 'sho', 'blk', 'pas', 'tec', 'spe', 'agr']);
+
+    this.addPosition('goalkeeper', {goa: 1, blk: 2, pas: 3, tec: 4, spe: 4});
+    this.addPosition('back', {fip: 1, pas: 2, tec: 3, spe: 4, agr: 4});
+    this.addPosition('pivot', {fip: 1, agr: 2, tec: 3, pas: 4, spe: 4});
+    this.addPosition('winger', {fip: 1, spe: 2, tec: 3, pas: 4, agr: 4});
+
+    this.construct();
 }
 extend(HandballPlayer, Player);
 
