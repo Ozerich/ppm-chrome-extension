@@ -260,7 +260,7 @@ function HandballPlayer() {
     this.addPosition('goalkeeper', {goa: 1, blk: 2, pas: 3, tec: 4, spe: 4});
     this.addPosition('back', {fip: 1, pas: 2, tec: 3, spe: 4, agr: 4});
     this.addPosition('pivot', {fip: 1, agr: 2, tec: 3, pas: 4, spe: 4});
-    this.addPosition('winger', {fip: 1, spe: 2, tec: 3, pas: 4, agr: 4});
+    this.addPosition('wing', {fip: 1, spe: 2, tec: 3, pas: 4, agr: 4});
 
     this.construct();
 }
