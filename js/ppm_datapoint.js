@@ -41,14 +41,17 @@ function PPM_Datapoint(_api_url, _sport) {
         params = params || {};
         callbacks = callbacks || {};
 
-        $.extend({
-            success: function () {
-            },
-            error: function () {
-            },
-            complete: function () {
-            }
-        }, callbacks);
+        if('complete' in callbacks === false){
+			callbacks.complete = new Function();
+		}
+		
+		if('error' in callbacks === false){
+			callbacks.error = new Function();
+		}
+		
+		if('success' in callbacks === false){
+			callbacks.success = new Function();
+		}
 
 
         $.ajax({
@@ -77,4 +80,8 @@ function PPM_Datapoint(_api_url, _sport) {
 
 PPM_Datapoint.prototype.GetTransfers = function (params, callbacks) {
     this.Request('GetTransfers', params, callbacks);
+}
+
+PPM_Datapoint.prototype.GetCareerHistory = function (params, callbacks) {
+    this.Request('GetCareerHistory', params, callbacks);
 }

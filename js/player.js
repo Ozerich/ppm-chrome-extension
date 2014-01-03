@@ -15,6 +15,9 @@ function Player() {
 
     this.pro_mode = false;
     this.is_at = false;
+    this.is_position_set = false;
+
+    this.skills_data = {};
 
     this.skills_ids = [];
     this.setSkillIds = function (_ids) {
@@ -26,18 +29,27 @@ function Player() {
     this.addPosition = function (_name, _data) {
         this.positions[_name] = _data;
     };
+
     this.position = '';
     this.position_config = null;
     this.setPosition = function (_position) {
         this.position = _position;
         this.position_config = 'positions' in this.config && _position in this.config['positions'] ? this.config['positions'][_position] : null;
+
+        if (this.is_position_set === false) {
+            for (var skill_id in this.positions[this.position]) {
+                if (this.positions[this.position].hasOwnProperty(skill_id)) {
+                    this.skills_data[skill_id][2] = this.positions[this.position][skill_id];
+                }
+            }
+        }
     };
 
-    this.skills_data = {};
 
     this.construct = function () {
         this.pro_mode = $('.protext .checkbox_yes').length > 0;
         this.is_at = $($('.table').first().find('tr').get(1)).find('td').first().attr('title') !== undefined;
+        this.is_position_set = $('.gray_box_profile strong').length > 0;
 
         for (var i = 0; i < this.skills_ids.length; i++) {
             this.skills_data[this.skills_ids[i]] = [0, 0];
@@ -46,20 +58,49 @@ function Player() {
     };
 
     this.getPosition = function () {
+        var position_id, skill_id, position_data;
 
-        for (var position_id in this.positions) {
-            var found = true;
-            var position_data = this.positions[position_id];
-            for (var skill_id in position_data) {
-                if (this.getSkillLevel(skill_id) != position_data[skill_id]) {
-                    found = false;
-                    break;
+        if (this.is_position_set) {
+            for (position_id in this.positions) {
+                if (this.positions.hasOwnProperty(position_id)) {
+                    var found = true;
+                    position_data = this.positions[position_id];
+                    for (skill_id in position_data) {
+                        if (position_data.hasOwnProperty(skill_id)) {
+                            if (this.getSkillLevel(skill_id) != position_data[skill_id]) {
+                                found = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (found) {
+                        this.setPosition(position_id);
+                        return true;
+                    }
                 }
             }
-            if (found) {
-                this.setPosition(position_id);
-                return true;
+        }
+        else {
+            var position = null, position_max = 0, position_sum;
+
+            for (position_id in this.positions) {
+                if (this.positions.hasOwnProperty(position_id)) {
+                    position_sum = 0;
+                    position_data = this.positions[position_id];
+                    for (skill_id in position_data) {
+                        if (position_data.hasOwnProperty(skill_id)) {
+                            position_sum += this.getSkillValue(skill_id);
+                        }
+                    }
+                    if (position_sum > position_max) {
+                        position_max = position_sum;
+                        position = position_id;
+                    }
+                }
             }
+
+            this.setPosition(position);
+            return true;
         }
 
         return false;
@@ -207,7 +248,28 @@ function Player() {
 
         return Math.round(result * 10) / 10;
     };
-}
+	
+	
+	this.getPlayerId = function(){
+		return parseInt($('.h1_add_info').first().text().trim().substr(4));
+	};
+	
+	this.loadCareerHistory = function(){
+		PPM.Datapoint.GetCareerHistory({player_id: this.getPlayerId()}, {success: function(response){
+			
+			var html = '<ul class="ppm_career_history">';
+			
+			for(var age in response){
+				html += '<li><span class="ppm_career_history_age">' + age + '</span>: <span class="ppm_career_history_career">' + response[age] + '</span></li>';
+			}
+			
+			html += '</ul>';
+			
+
+			$('#life_time').html($('#life_time').html() + '<br>' + html);
+		}});
+	}
+} 
 
 function HockeyPlayer() {
     var that = this;
@@ -217,7 +279,7 @@ function HockeyPlayer() {
     this.setSport('hockey');
     this.setSkillIds(['goa', 'def', 'off', 'sho', 'pas', 'tec', 'agr']);
 
-    this.addPosition('goalkeeper', {'goa': 1, 'pas': 2, 'tec': 2});
+    this.addPosition('goalkeeper', {goa: 1, pas: 2, tec: 2});
     this.addPosition('deffender', {def: 1, pas: 2, agr: 2});
     this.addPosition('winger', {off: 1, tec: 2, agr: 2});
     this.addPosition('center', {off: 1, tec: 2, pas: 2});
@@ -276,6 +338,7 @@ else if (sport == 'handball') {
 
 player.parseSkills();
 player.getPosition();
+player.loadCareerHistory();
 
 if (player.position != '') {
     player.hideHiddenSkills();

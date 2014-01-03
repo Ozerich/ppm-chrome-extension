@@ -75,10 +75,10 @@ var Config = {
                 visible: ['def', 'tec', 'spe', 'pas', 'hea'],
                 skills: {
                     def: 100,
-                    tec: 50,
+                    tec: 60,
                     spe: 50,
                     pas: 50,
-                    hea: 50
+                    hea: 60
                 }
             },
 

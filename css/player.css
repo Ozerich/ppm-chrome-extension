@@ -1,0 +1,22 @@
+#life_time{
+	padding-top: 4px;
+}
+.ppm_career_history{
+	list-style: none;
+	font-size: 11px;
+	line-height: 14px;
+	padding-left: 0;
+	margin: 4px 0;
+}
+
+.ppm_career_history li{
+	display: block;
+}
+
+.ppm_career_history li .ppm_career_history_age{
+	display: inline-block;
+}
+
+.ppm_career_history li .ppm_career_history_career{
+	display: inline-block;
+}
