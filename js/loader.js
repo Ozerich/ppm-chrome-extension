@@ -24,11 +24,9 @@ function PPM_Class(_sport) {
         $header.append('<a href="/ru/pro-zone.html" class="btn-pro">PRO</a>');
 
         $('.top_info_box').after($header);
-
     };
 
     this.initLayout();
-
 }
 
 var sport = document.location.href.substr(7);

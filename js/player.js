@@ -248,28 +248,28 @@ function Player() {
 
         return Math.round(result * 10) / 10;
     };
-	
-	
+
+
 	this.getPlayerId = function(){
 		return parseInt($('.h1_add_info').first().text().trim().substr(4));
 	};
-	
+
 	this.loadCareerHistory = function(){
 		PPM.Datapoint.GetCareerHistory({player_id: this.getPlayerId()}, {success: function(response){
-			
+
 			var html = '<ul class="ppm_career_history">';
-			
+
 			for(var age in response){
 				html += '<li><span class="ppm_career_history_age">' + age + '</span>: <span class="ppm_career_history_career">' + response[age] + '</span></li>';
 			}
-			
+
 			html += '</ul>';
-			
+
 
 			$('#life_time').html($('#life_time').html() + '<br>' + html);
 		}});
 	}
-} 
+}
 
 function HockeyPlayer() {
     var that = this;

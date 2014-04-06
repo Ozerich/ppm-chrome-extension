@@ -185,5 +185,17 @@ var Config = {
             }
         }
     }
+};
 
+Config.get = function (sport, param) {
+
+    if (sport in Config === false) {
+        return null;
+    }
+
+    if (param in Config[sport] === false) {
+        return null;
+    }
+
+    return Config[sport][param];
 };

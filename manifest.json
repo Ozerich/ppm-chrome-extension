@@ -11,22 +11,26 @@
 
     "content_scripts": [
         {
-            "matches": ["http://hockey.powerplaymanager.com/*","http://soccer.powerplaymanager.com/*","http://handball.powerplaymanager.com/*"],
+            "matches": ["http://*.powerplaymanager.com/*"],
             "run_at": "document_start",
-            "js": ["lib/jquery.js", "config.js", "js/ppm_datapoint.js"],
-            "css": ["css/ppm.css", "css/ext.css"]
+            "js": ["lib/jquery-2.1.0.min.js", "js/ppm_datapoint.js", "js/loader.js"]
         },
         {
-            "matches": ["http://*.powerplaymanager.com/*"],
-            "run_at": "document_end",
-            "js": ["js/loader.js"]
-
+            "matches": ["http://hockey.powerplaymanager.com/*", "http://soccer.powerplaymanager.com/*", "http://handball.powerplaymanager.com/*"],
+            "run_at": "document_start",
+            "js": ["config.js", "js/models/player.js"],
+            "css": ["css/ppm.css", "css/ext.css"]
         },
         {
             "matches": ["http://*.powerplaymanager.com/*/player.html*", "http://handball.powerplaymanager.com/*/player-profile.html*"],
             "run_at": "document_end",
-            "js": ["js/player.js"],
+            "js": ["js/pages/player_page.js"],
             "css": ["css/player.css"]
+        },
+        {
+            "matches": ["http://*.powerplaymanager.com/*/market*", "http://*.powerplaymanager.com/*/player-market*"],
+            "run_at": "document_end",
+            "js": ["js/pages/market_page.js"]
         }
     ]
 
