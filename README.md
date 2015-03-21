@@ -1,4 +1,4 @@
 ppm-chrome-extension
 ====================
 
-chrome extension for game powerplaymanager.com
+Google Chrome extension for online game powerplaymanager.com

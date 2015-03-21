@@ -17,7 +17,6 @@ var Config = {
                 skills: {
                     def: 100,
                     pas: 50,
-                    tec: 47,
                     agr: 50
                 }
             },
@@ -47,6 +46,7 @@ var Config = {
     soccer: {
         positions: {
             goalkeeper: {
+				short: 'G',
                 name: 'Вратарь',
                 visible: ['goa', 'tec', 'spe', 'pas', 'hea'],
                 skills: {
@@ -59,76 +59,84 @@ var Config = {
             },
 
             side_defender: {
+				short: 'SD',
                 name: 'Крайний защитник',
                 visible: ['def', 'spe', 'pas', 'tec', 'hea'],
                 skills: {
                     def: 100,
-                    spe: 70,
-                    pas: 50,
+                    spe: 75,
+                    pas: 55,
                     tec: 50,
-                    hea: 25
-                }
+                    hea: 30
+                } 
             },
 
             center_defender: {
+				short: 'CD',
                 name: 'Центральный защитник',
                 visible: ['def', 'tec', 'spe', 'pas', 'hea'],
                 skills: {
                     def: 100,
-                    tec: 60,
-                    spe: 50,
-                    pas: 50,
-                    hea: 60
+                    tec: 45,
+                    spe: 45,
+                    pas: 55,
+                    hea: 55
                 }
             },
 
             side_midfielder: {
+				short: 'SM',
                 name: 'Фланговый полузащитник',
                 visible: ['mid', 'sho', 'tec', 'spe', 'pas', 'hea'],
                 skills: {
                     mid: 100,
-                    spe: 70,
-                    pas: 50,
-                    tec: 50,
-                    hea: 25
-                }
-            },
-
-            center_midfielder: {
-                name: 'Центральный полузащитник',
-                visible: ['mid', 'sho', 'tec', 'spe', 'pas', 'hea'],
-                skills: {
-                    mid: 100,
-                    tec: 70,
-                    pas: 70,
-                    spe: 30,
+                    sho: 30,
+                    spe: 75,
+                    pas: 60,
+                    tec: 55,
                     hea: 30
                 }
             },
 
-            side_forward: {
-                name: 'Фланговый нападающий',
-                visible: ['off', 'sho', 'tec', 'spe', 'pas', 'hea'],
+            center_midfielder: {
+				short: 'CM',
+                name: 'Центральный полузащитник',
+                visible: ['mid', 'sho', 'tec', 'spe', 'pas', 'hea'],
                 skills: {
-                    off: 100,
-                    sho: 70,
-                    spe: 70,
+                    mid: 100,
+                    sho: 30,
                     tec: 70,
-                    pas: 50,
+                    pas: 75,
+                    spe: 30,
                     hea: 25
                 }
             },
 
+            side_forward: {
+				short: 'SF',
+                name: 'Фланговый нападающий',
+                visible: ['off', 'sho', 'tec', 'spe', 'pas', 'hea'],
+                skills: {
+                    off: 100,
+                    sho: 65,
+                    spe: 75,
+                    tec: 75,
+                    pas: 50,
+                    hea: 30
+                }
+            },
+
             center_forward: {
+				short: 'CF',
                 name: 'Центральный нападающий',
                 visible: ['off', 'sho', 'tec', 'spe', 'pas', 'hea'],
                 skills: {
                     off: 100,
-                    sho: 70,
-                    spe: 70,
-                    tec: 50,
-                    pas: 25,
-                    hea: 25
+                    sho: 75,
+                    spe: 75,
+                    tec: 60,
+                    pas: 30,
+                    hea: 30
                 }
             }
         }
@@ -150,7 +158,7 @@ var Config = {
 
             back: {
                 name: 'Центральный',
-                visible: ['fip', 'sho', 'pas', 'spe', 'tec', 'agr'],
+                visible: ['fip', 'sho', 'blk', 'pas', 'spe', 'tec', 'agr'],
                 skills: {
                     fip: 100,
                     pas: 70,
@@ -162,7 +170,7 @@ var Config = {
 
             pivot: {
                 name: 'Линейный',
-                visible: ['fip', 'sho', 'pas', 'spe', 'tec', 'agr'],
+                visible: ['fip', 'sho', 'blk', 'pas', 'spe', 'tec', 'agr'],
                 skills: {
                     fip: 100,
                     agr: 70,
@@ -174,7 +182,7 @@ var Config = {
 
             wing: {
                 name: 'Крайний',
-                visible: ['fip', 'sho', 'pas', 'spe', 'tec', 'agr'],
+                visible: ['fip', 'sho', 'blk', 'pas', 'spe', 'tec', 'agr'],
                 skills: {
                     fip: 100,
                     spe: 70,

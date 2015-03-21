@@ -80,8 +80,8 @@ function PPM_Datapoint(_api_url, _sport) {
 
 PPM_Datapoint.prototype.GetTransfers = function (params, callbacks) {
     this.Request('GetTransfers', params, callbacks);
-}
+};
 
 PPM_Datapoint.prototype.GetCareerHistory = function (params, callbacks) {
     this.Request('GetCareerHistory', params, callbacks);
-}
+};

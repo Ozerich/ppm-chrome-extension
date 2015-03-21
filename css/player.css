@@ -20,3 +20,21 @@
 .ppm_career_history li .ppm_career_history_career{
 	display: inline-block;
 }
+
+
+#transfers_last{
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+#transfers_last th{
+    font-weight: bold;
+    border-bottom: 1px solid #eee;
+    padding: 5px;
+}
+
+#transfers_last td{
+    border: 1px solid #eee;
+    padding: 5px;
+}

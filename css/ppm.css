@@ -35,8 +35,10 @@ body{
     height: 0;
 }
 
-.top_info{
-    display: none !important;
+.top_link{
+	display: none;
 }
 
 
+
+.column_right{display: none;}
