@@ -82,7 +82,7 @@
 							var skill_ind = player.getSkillInd(skill_id);
 							
 							var $cell = $($cells.get(skill_ind + indexes.skills));
-							$cell.html($cell.text() + '<span style="font-size:10px;display:block;color: '+color+';">' + error + '</span>');
+							//$cell.html($cell.text() + '<span style="font-size:10px;display:block;color: '+color+';">' + error + '</span>');
 						}
 					}	
 					
