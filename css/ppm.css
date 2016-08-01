@@ -42,3 +42,16 @@ body{
 
 
 .column_right{display: none;}
+
+.strength_bar{
+    height: 20px !important;
+}
+
+.strength_bar_number{
+    width: auto;
+    position: absolute;
+    color: #fff !important;
+    font-size: 10px;
+    line-height: 23px;
+    font-weight: bold;
+}
