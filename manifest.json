@@ -32,16 +32,20 @@
             "run_at": "document_end",
             "js": ["js/pages/market_page.js"]
         },
-		{
+        {
             "matches": ["http://*.powerplaymanager.com/*/national-team-roster*", "http://*.powerplaymanager.com/*/edit-line*", "http://*.powerplaymanager.com/*/lines*", "http://*.powerplaymanager.com/*/line*up*"],
             "run_at": "document_end",
             "js": ["js/pages/lines_page.js"]
         },
         {
-            "matches": ["http://*.powerplaymanager.com/*/draft.html*"],
+            "matches": ["http://*.powerplaymanager.com/*/national-team-roster*", "http://*.powerplaymanager.com/*/edit-line*", "http://*.powerplaymanager.com/*/lines*", "http://*.powerplaymanager.com/*/line*up*"],
             "run_at": "document_end",
-            "js": ["js/pages/draft_page.js"],
-            "css": ["css/player.css"]
+            "js": ["js/pages/lines_page.js"]
+        },
+        {
+            "matches": ["http://*.powerplaymanager.com/*/national-team-calendar*"],
+            "run_at": "document_end",
+            "js": ["js/pages/national_team_page.js"]
         }
     ]
 
