@@ -46,6 +46,11 @@
             "matches": ["http://*.powerplaymanager.com/*/national-team-calendar*"],
             "run_at": "document_end",
             "js": ["js/pages/national_team_page.js"]
+        },
+        {
+            "matches": ["http://*.powerplaymanager.com/*/draft*"],
+            "run_at": "document_end",
+            "js": ["js/pages/draft_page.js"]
         }
     ]
 
